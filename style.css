@@ -135,6 +135,11 @@
     transform: translate(-50%, -50%);
   }
 
+  .center img {
+    max-width: 100%; 
+    height: auto;
+  }
+
   .container {
     height: 110px;
     position: relative;
