@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import datetime
 import os
 import pytz
+import pandas as pd
 
 load_dotenv() 
 
@@ -17,9 +18,23 @@ cluster = MongoClient(mongo_uri)
 db = cluster[db_name]
 collection = db['progress_reports']
 
+def get_program_list():
+    cluster = MongoClient(mongo_uri)
+    db = cluster[db_name]
+    collection = db['ysab']
+    # Retrieve all records from the collection
+    cursor = collection.find()
+    # Convert the cursor to a list of dictionaries
+    records = list(cursor)
+    # Create a Pandas DataFrame
+    df = pd.DataFrame(records)
+    cluster.close()
+    return df.title.to_list()
+
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', dropdown_items = get_program_list())
 
 @app.route('/submit_form', methods=['POST'])
 def submit_form():
