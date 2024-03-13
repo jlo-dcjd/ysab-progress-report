@@ -38,7 +38,7 @@
 
     <div>
     <br>
-      <label class="desc" type="hidden" id="name" for="name">Applicant Name</label>
+      <label class="desc" type="hidden" id="name" for="name">Name</label>
       <div>
         <input id="name" name="name" type="text" class="field text fn" value="" size="8" tabindex="1" required>
       </div>
@@ -46,7 +46,7 @@
 
     <div>
         <label class="desc" id="app_title" for="app_title">
-        Applicant Title
+        Title
         </label>
         <div>
           <input id="app_title" name="app_title" type="text" class="field text fn" value="" size="8" tabindex="1">
@@ -104,17 +104,17 @@
   </div>
 
     <div>
-      <label class="desc" id="project_purpose" for="project_purpose">
-        Project Purpose
+      <label class="desc" id="how_funds_advanced_goals_of_program" for="how_funds_advanced_goals_of_program">
+        Describe specifically how the use of your YSAB award advanced the goals and objectives of your program. Link the use of your YSAB award with your program activities.
       </label>
       <div>
-        <textarea id="project_purpose" name="project_purpose" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder=""></textarea>
+        <textarea id="how_funds_advanced_goals_of_program" name="how_funds_advanced_goals_of_program" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder=""></textarea>
       </div>
     </div>
 
     <div>
         <label class="desc" id="project_contact" for="project_contact">
-        Project Contact
+        Project Contact (Name)
         </label>
         <div>
           <input id="project_contact" name="project_contact" type="text" class="field text fn" value="" size="8" tabindex="1">
@@ -158,7 +158,7 @@
       <div>
         <input id="amount_expended_mid" name="amount_expended_mid" type="number" class="field text fn" value="" size="8" tabindex="1" min="1" max="99999">
      </div>
-  </div>
+   </div>
 
   <div>
     <label class="desc" id="amount_expended_final" for="amount_expended_final">
@@ -167,13 +167,14 @@
     <div>
       <input id="amount_expended_final" name="amount_expended_final" type="number" class="field text fn" value="" size="8" tabindex="1" min="1" max="99999">
    </div>
-</div>
+  </div>
 
+  <br>
+  <br>
   <h3>Performance Measures</h3>
-      
+  <h4>Output Measures</h4>
+    
     <div>
-      <label class="desc" id="output_measures" for="output_measures">Output Measures</label>
-      <div>
         <table align="center" border=1 cellspacing="1" cellpadding="5">
           <thead>
               <tr>
@@ -413,12 +414,12 @@
         </tr>        
           </tbody>
         </table>
-      </div>
     </div>
 
+    <br>
+    <h4>Outcome Measures</h4>
+
     <div>
-      <label class="desc" id="outcome_measures" for="outcome_measures">Outcome Measures</label>
-      <div>
         <table align="center" border=1 cellspacing="1" cellpadding="5">
           <thead>
               <tr>
@@ -604,25 +605,34 @@
           </tr>         
           </tbody>
         </table>
-      </div>
     </div>
 
-    <h3>Program Accomplishments</h3>
+    <!-- <h3>Program Accomplishments</h3>
 
     <div>
       <label class="desc" id="funds_explain" for="funds_explain">Provide an explaination and justify why you required the funds. Detail how the funds were ultimately utilized.</label>
       <div>
         <textarea id="funds_explain" name="funds_explain" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder="Maximum 250 words"></textarea>
       </div>
-  </div>
+  </div> -->
+
+  <br><br>
+  <h3>Programatic Considerations</h3>
 
     <div>
+      <label class="desc" id="funds_explain" for="funds_explain">If you need your award increased before the end of the period, provide a justification for the increase and the amount of the increase.</label>
+      <div>
+        <textarea id="funds_explain" name="funds_explain" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder="Maximum 250 words"></textarea>
+      </div>
+  </div>
+
+    <!-- <div>
       <label class="desc" id="impact_story" for="impact_story">Please share an impact story about how these funds assisted your project to help youth 
         involved with the Dallas County Juvenile Department. </label>
       <div>
         <textarea id="impact_story" name="impact_story" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder="Maximum 250 words"></textarea>
       </div>
-    </div>
+    </div> -->
 
     <div>
       <p style="color:red;">Mid-term Report Only</p>
@@ -683,19 +693,25 @@
     </div>
 
     <div>
-      <p style="color:red;">Notes by grantee to YSAB</p>
-      <label class="desc" id="midterm_notes" for="midterm_notes">Mid-term Report Only</label>
+      <label class="desc" id="challenges_discrepances" for="challenges_discrepances">Provide any overlooked challenges or discrepancies encountered while managing the grant funds, such as discrepancies between the intended and actual use of funds or unanticipated issues not addressed in the application or progress reports.</label>
       <div>
-        <textarea id="midterm_notes" name="midterm_notes" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder=""></textarea>
+        <textarea id="challenges_discrepances" name="challenges_discrepances" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder=""></textarea>
       </div>
     </div>
-    <div>
-      <label class="desc" id="final_notes" for="final_notes">Final Report Only</label>
-      <div>
-        <textarea id="final_notes" name="final_notes" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder=""></textarea>
+
+    <br>
+    <br>
+
+    <div style="text-align: justify;">
+      <div style="display: inline-flex; align-items: center; border: 1px solid red; padding: 15px;">
+        <input type="checkbox" id="disclaimer_check" name="disclaimer_check" value="agree" required style="width: 15px; height: 15px;" required>
+        <label for="disclaimer_check" style="margin-left: 10px;">All of the information contained within this progress report is true and accurate as of the date this report is being submitted. As the informant, you affirm that all due diligence has been completed. This report is made in good faith and with respect for the purpose of the Youth Services Advisory Board grant program for the express direct benefit of the youth under the authority of the Dallas County Juvenile Department.</label>
       </div>
     </div>
-    <br><br>
+
+    <br>
+    <br>
+
     <div>
       <label class="desc" id="print" for="print">Click the button to print your application.</label>
       <div>
@@ -705,8 +721,24 @@
 
     <div class="container">
       <div class="center">
-        <input id="saveForm" name="saveForm" type="submit" value="Submit" class="submit-button">
+        <input id="saveForm" name="saveForm" type="submit" value="Submit" class="submit-button" disabled>
       </div>
     </div>
+
+    <script>
+      const disclaimerCheckbox = document.getElementById('disclaimer_check');
+      const submitButton = document.getElementById('saveForm');
+    
+      disclaimerCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          submitButton.style.backgroundColor = 'blue';
+          submitButton.disabled = false;
+        } else {
+          submitButton.style.backgroundColor = 'grey';
+          submitButton.disabled = true;
+        }
+      });
+    </script>
+
   </form>
 </html>
