@@ -29,9 +29,9 @@
       <label class="desc" id="reporting_period" for="reporting_period"><span style="color:red"><b>Reporting Period</b></span></label>
       <div>
         <select id="reporting_period" name="reporting_period" class="field select medium" tabindex="11"> 
-          <option value="Choose an item">Choose an item</option>
-          <option value="Mid-term">Mid-term</option>
-          <option value="Final">Final</option>
+          <option disabled selected>Choose an item</option>
+          <option value="M">Mid-term</option>
+          <option value="F">Final</option>
         </select>
       </div>
     </div>
@@ -95,7 +95,7 @@
         Project Title
       </label>
       <div>
-        <select id="dropdown" name="dropdown">
+        <select id="title" name="title">
           {% for item in dropdown_items %}
           <option value="{{ item }}">{{ item }}</option>
           {% endfor %}

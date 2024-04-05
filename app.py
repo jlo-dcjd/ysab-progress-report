@@ -6,6 +6,7 @@ import datetime
 import os
 import pytz
 import pandas as pd
+import re
 
 load_dotenv() 
 
@@ -31,6 +32,32 @@ def get_program_list():
     cluster.close()
     return df.title.to_list()
 
+def get_prog_report_num():
+    cluster = MongoClient(mongo_uri)
+    db = cluster[db_name]
+    collection = db['progress_reports']
+    # Retrieve all records from the collection
+    cursor = collection.find()
+    # Convert the cursor to a list of dictionaries
+    records = list(cursor)
+    # Create a Pandas DataFrame
+    df = pd.DataFrame(records)
+    cluster.close()
+    return df.shape[0] + 1
+
+def progress_report_id(report_period):
+    year = datetime.datetime.now().year
+    application_number = get_prog_report_num()
+    project_name = str(request.form.get('title'))
+    project_abbreviation = re.sub(r'[^a-zA-Z0-9\s]', '', project_name)
+    project_abbreviation = "".join(word[0] for word in project_abbreviation.split())
+    funding = 'YSAB'
+    # form type - A: application PM: progress report mid-term PF: progress report final
+    form_type = str(report_period)
+    # Generate unique ID
+    unique_id = f"{year}-{application_number:03d}-{project_abbreviation}-{funding}-{form_type}"
+    return unique_id
+
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -43,13 +70,14 @@ def submit_form():
             form_data = request.form.to_dict()
             name = request.form.get('name')
             email = request.form.get('email')
+            form_id = progress_report_id(request.form.get('reporting_period'))
 
             #timestamp
             central_timezone = pytz.timezone('America/Chicago')
             current_time = datetime.datetime.now(central_timezone)
             timestamp = current_time.strftime("%m-%d-%Y %H:%M")
             
-            form_data = {'timestamp': timestamp, **form_data}
+            form_data = {'_id': form_id, 'timestamp': timestamp, **form_data}
 
             # Insert data into MongoDB
             collection.insert_one(form_data)
