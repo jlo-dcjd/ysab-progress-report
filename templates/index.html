@@ -26,7 +26,7 @@
     <p><b>Disclamer:</b> For privacy and security reasons, please be advised not to include any confidential or sensitive information in your submission.</p>
     
     <div>
-      <label class="desc" id="reporting_period" for="reporting_period"><span style="color:red"><b>Reporting Period</b></span></label>
+      <label for="reporting_period"><span style="color:red"><b>Reporting Period</b></span></label>
       <div>
         <select id="reporting_period" name="reporting_period" class="field select medium" tabindex="11"> 
           <option disabled selected>Choose an item</option>
@@ -37,16 +37,47 @@
     </div>
 
     <div>
+      <label for="app_record">
+        Select Application Record
+      </label>
+      <div>
+        <select id="app_record" name="app_record">
+          <option disabled selected>Choose an item</option>
+          {% for item in app_list %}
+            {% set split_item = item.split(' : ') %}
+            {% set display_item = split_item[0] ~ ' : ' ~ split_item[1] %}
+          <option value="{{ item }}">{{ display_item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("app_record").addEventListener("change", function() {
+        // Get the selected option
+        var selectedOption = this.options[this.selectedIndex];
+        // Split the value of selected option to get name, email, and project title
+        var values = selectedOption.value.split(' : ');
+        // Populate the fields
+        document.getElementById("name").value = values[1];
+        document.getElementById("app_title").value = values[2];
+        document.getElementById("email").value = values[3];
+        document.getElementById("phone").value = values[4];
+        document.getElementById("title").value = values[5];
+    });
+    </script>
+
+    <div>
     <br>
-      <label class="desc" type="hidden" id="name" for="name">Name</label>
+      <label for="name">Name</label>
       <div>
         <input id="name" name="name" type="text" class="field text fn" value="" size="8" tabindex="1" required>
       </div>
     </div>
 
     <div>
-        <label class="desc" id="app_title" for="app_title">
-        Title of Project
+        <label for="app_title">
+          Applicant Title
         </label>
         <div>
           <input id="app_title" name="app_title" type="text" class="field text fn" value="" size="8" tabindex="1">
@@ -54,7 +85,7 @@
     </div>
 
     <div>
-        <label class="desc" id="email" for="email">
+        <label for="email">
           Contact Email
         </label>
         <div>
@@ -63,7 +94,7 @@
     </div>
 
     <div>
-      <label class="desc" id="phone" for="phone">
+      <label for="phone">
         Contact Phone Number
       </label>
       <div>
@@ -90,8 +121,9 @@
   </script>
 
   <h3>Profile</h3>
-    <div>
-      <label class="desc" id="title" for="title">
+
+    <!-- <div>
+      <label for="title">
         Project Title
       </label>
       <div>
@@ -99,12 +131,20 @@
           {% for item in dropdown_items %}
           <option value="{{ item }}">{{ item }}</option>
           {% endfor %}
-       </select>
-     </div>
-  </div>
+        </select>
+      </div>
+    </div> -->
 
     <div>
-      <label class="desc" id="how_funds_advanced_goals_of_program" for="how_funds_advanced_goals_of_program">
+      <br>
+        <label for="title">Project Title</label>
+        <div>
+          <input id="title" name="title" type="text" class="field text fn" value="" size="8" tabindex="1" required>
+        </div>
+      </div>
+
+    <div>
+      <label for="how_funds_advanced_goals_of_program">
         Describe specifically how the use of your YSAB award advanced the goals and objectives of your program. Link the use of your YSAB award with the impact it has made on your outcomes.
       </label>
       <div>
@@ -113,7 +153,7 @@
     </div>
 
     <div>
-        <label class="desc" id="project_contact" for="project_contact">
+        <label for="project_contact">
         Project Contact (Name)
         </label>
         <div>
@@ -122,21 +162,21 @@
     </div>
 
     <div>
-      <label class="desc" id="fiscal_year" for="fiscal_year">Fiscal Year</label>
+      <label for="fiscal_year">Fiscal Year</label>
       <div>
         <input id="fiscal_year" name="fiscal_year" type="number" class="field text fn" value="" size="8" tabindex="1" min="1" max="99999">
      </div>
     </div>
       
     <div>
-      <label class="desc" id="start_date" for="start_date">Start Date:</label>
+      <label for="start_date">Start Date:</label>
       <div>
         <input type="date" id="start_date" name="start_date" value="2024-01-01" min="2018-01-01" max="2099-12-31" />
       </div>
     </div>
 
     <div>
-      <label class="desc" id="end_date" for="end_date">End Date:</label>
+      <label for="end_date">End Date:</label>
       <div>
         <input type="date" id="end_date" name="end_date" value="2024-01-01" min="2018-01-01" max="2099-12-31" />
       </div>
@@ -152,7 +192,7 @@
     </div>
 
     <div>
-      <label class="desc" id="amount_expended_mid" for="amount_expended_mid">
+      <label for="amount_expended_mid">
       Amount Expended - Mid-term
       </label>
       <div>
@@ -161,7 +201,7 @@
    </div>
 
   <div>
-    <label class="desc" id="amount_expended_final" for="amount_expended_final">
+    <label for="amount_expended_final">
     Amount Expended - Final
     </label>
     <div>
@@ -621,7 +661,7 @@
   <h3>Programmatic Considerations</h3>
 
     <div>
-      <label class="desc" id="funds_explain" for="funds_explain"><b>Award Amendment</b> <p>If the YSAB award needs to be increased for this project before the end of the period, make the request and provide a justification for the increase and the amount of the increase.</p></label>
+      <label for="funds_explain"><b>Award Amendment</b> <p>If the YSAB award needs to be increased for this project before the end of the period, make the request and provide a justification for the increase and the amount of the increase.</p></label>
       <div>
         <textarea id="funds_explain" name="funds_explain" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder="Maximum 250 words"></textarea>
       </div>
@@ -637,7 +677,7 @@
 
     <div>
       <p style="color:red;">Mid-term Report Only</p>
-      <label class="desc" id="midterm_full_amount" for="midterm_full_amount">Are you on track to spend the full amount awarded in your application?</label>
+      <label for="midterm_full_amount">Are you on track to spend the full amount awarded in your application?</label>
       <div>
         <select id="midterm_full_amount" name="midterm_full_amount" class="field select medium" tabindex="11"> 
           <option value="Choose an item">Choose an item</option>
@@ -648,7 +688,7 @@
     </div>
 
     <div>
-      <label class="desc" id="midterm_full_amount_no" for="midterm_full_amount_no">
+      <label for="midterm_full_amount_no">
         If no, describe any problems or obstacles that have affected your ability to spend your grant funds.
       </label>
       <div>
@@ -656,7 +696,7 @@
      </div>
    </div>
    <div>
-      <label class="desc" id="midterm_full_amount_no2" for="midterm_full_amount_no2">
+      <label for="midterm_full_amount_no2">
         If you are <b>not</b> on track to meet output and/or outcome target levels, describe any problems or obstacles that have affected your ability to achieve them.
       </label>
       <div>
@@ -666,7 +706,7 @@
     
     <div>
       <p style="color:red;">Final Report Only</p>
-      <label class="desc" id="final_full_amount" for="final_full_amount">Did you spend the full amount awarded in your application?</label>
+      <label for="final_full_amount">Did you spend the full amount awarded in your application?</label>
       <div>
         <select id="final_full_amount" name="final_full_amount" class="field select medium" tabindex="11"> 
           <option value="Choose an item">Choose an item</option>
@@ -677,7 +717,7 @@
     </div>
 
     <div>
-      <label class="desc" id="final_full_amount_no" for="final_full_amount_no">
+      <label for="final_full_amount_no">
       If no, describe any problems or obstacles that have affected your ability to spend your grant funds and <u>indicate the percentage spent</u>.
       </label>
       <div>
@@ -685,7 +725,7 @@
      </div>
    </div>
    <div>
-      <label class="desc" id="final_full_amount_no2" for="final_full_amount_no2">
+      <label for="final_full_amount_no2">
         If your output and/or outcome target levels were <b>not</b> met, describe any problems or obstacles that affected your ability to achieve them. 
       </label>
       <div>
@@ -694,7 +734,7 @@
     </div>
 
     <div>
-      <label class="desc" id="challenges_discrepances" for="challenges_discrepances">Provide any overlooked challenges or discrepancies encountered while managing the grant funds, such as discrepancies between the intended and actual use of funds or unanticipated issues not addressed elsewhere.</label>
+      <label for="challenges_discrepances">Provide any overlooked challenges or discrepancies encountered while managing the grant funds, such as discrepancies between the intended and actual use of funds or unanticipated issues not addressed elsewhere.</label>
       <div>
         <textarea id="challenges_discrepances" name="challenges_discrepances" spellcheck="true" rows="10" cols="50" tabindex="4" placeholder=""></textarea>
       </div>
@@ -714,7 +754,7 @@
     <br>
 
     <div>
-      <label class="desc" id="print" for="print">Click the button to print your application.</label>
+      <label for="print">Click the button to print your application.</label>
       <div>
         <button onclick="window.print()">Print application</button>
       </div>

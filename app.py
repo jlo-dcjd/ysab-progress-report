@@ -32,6 +32,22 @@ def get_program_list():
     cluster.close()
     return df.title.to_list()
 
+# pre-populate fields auto
+def get_app_list():
+    cluster = MongoClient(mongo_uri)
+    db = cluster[db_name]
+    collection = db['ysab']
+    # Retrieve all records from the collection
+    cursor = collection.find()
+    # Convert the cursor to a list of dictionaries
+    records = list(cursor)
+    # Create a Pandas DataFrame
+    df = pd.DataFrame(records)
+    df['app_record'] = pd.concat([df.timestamp.str[:10], df[['name', 'app_title', 'email', 'phone', 'title']]], axis=1).apply(lambda row: ' : '.join(row), axis=1)
+    cluster.close()
+    return df.app_record.to_list()
+
+
 def get_prog_report_num():
     cluster = MongoClient(mongo_uri)
     db = cluster[db_name]
@@ -52,7 +68,7 @@ def progress_report_id(report_period):
     project_abbreviation = re.sub(r'[^a-zA-Z0-9\s]', '', project_name)
     project_abbreviation = "".join(word[0] for word in project_abbreviation.split())
     funding = 'YSAB'
-    # form type - A: application PM: progress report mid-term PF: progress report final
+    # form type - A: application M: progress report mid-term F: progress report final
     form_type = str(report_period)
     # Generate unique ID
     unique_id = f"{year}-{application_number:03d}-{project_abbreviation}-{funding}-{form_type}"
@@ -61,7 +77,7 @@ def progress_report_id(report_period):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', dropdown_items = get_program_list())
+    return render_template('index.html', dropdown_items = get_program_list(), app_list = get_app_list())
 
 @app.route('/submit_form', methods=['POST'])
 def submit_form():
