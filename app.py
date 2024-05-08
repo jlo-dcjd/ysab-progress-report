@@ -43,10 +43,9 @@ def get_app_list():
     records = list(cursor)
     # Create a Pandas DataFrame
     df = pd.DataFrame(records)
-    df['app_record'] = pd.concat([df.timestamp.str[:10], df[['name', 'app_title', 'email', 'phone', 'title']]], axis=1).apply(lambda row: ' : '.join(row), axis=1)
+    df['app_record'] = pd.concat([df.timestamp.str[:10], df[['name', 'app_title', 'email', 'phone', 'title', 'amount', 'output1', 'output2', 'output3', 'output4', 'output5', 'target1', 'target2', 'target3', 'target4', 'target5', 'outcome1', 'outcome2', 'outcome3', 'outcome4', 'outcome5', 'target1.1', 'target2.1', 'target3.1', 'target4.1', 'target5.1']].astype(str)], axis=1).apply(lambda row: ' : '.join(row), axis=1)
     cluster.close()
     return df.app_record.to_list()
-
 
 def get_prog_report_num():
     cluster = MongoClient(mongo_uri)
@@ -73,7 +72,6 @@ def progress_report_id(report_period):
     # Generate unique ID
     unique_id = f"{year}-{application_number:03d}-{project_abbreviation}-{funding}-{form_type}"
     return unique_id
-
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
