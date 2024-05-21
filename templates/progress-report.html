@@ -1,15 +1,175 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="{{url_for('static', filename='/style.css')}}"> 
   <title>YSAB Progress Report</title>   
-  <link rel="icon" href="{{url_for('static', filename='images/fav-icon.svg')}}">
+  <style>
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 20px 15%;
+    }
+    form header {
+      margin: 0 0 20px 0; 
+    }
+    form header div {
+      font-size: 90%;
+      color: #999;
+    }
+    form header h2 {
+      margin: 0 0 5px 0;
+    }
+    form > div {
+      clear: both;
+      overflow: hidden;
+      padding: 1px;
+      margin: 0 0 10px 0;
+    }
+    form > div > fieldset > div > div {
+      margin: 0 0 5px 0;
+    }
+    form > div > label,
+    legend {
+        width: 25%;
+      float: left;
+      padding-right: 10px;
+    }
+    form > div > div,
+    form > div > fieldset > div {
+      width: 75%;
+      float: right;
+    }
+    form > div > fieldset label {
+        font-size: 90%;
+    }
+    fieldset {
+        border: 0;
+      padding: 0;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=url],
+    input[type=password],
+    textarea {
+        width: 100%;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      resize: none;
+      overflow: none;
+    }
+    input[type=text],
+    input[type=email],
+    input[type=url],
+    input[type=password] {
+      width: 50%;
+    }
+    input[type=text]:focus,
+    input[type=email]:focus,
+    input[type=url]:focus,
+    input[type=password]:focus,
+    textarea:focus {
+      outline: 0;
+      border-color: #4697e4;
+    }
+
+    @media (max-width: 600px) {
+      form > div {
+        margin: 0 0 15px 0; 
+      }
+      form > div > label,
+      legend {
+          width: 100%;
+        float: none;
+        margin: 0 0 5px 0;
+      }
+      form > div > div,
+      form > div > fieldset > div {
+        width: 100%;
+        float: none;
+      }
+      input[type=text],
+      input[type=email],
+      input[type=url],
+      input[type=password],
+      textarea,
+      select {
+        width: 100%; 
+      }
+    }
+    @media (min-width: 1200px) {
+      form > div > label,
+        legend {
+          text-align: right;
+      }
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Adjust the width of the input text boxes */
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .grand-total-table {
+      width: 50%;
+      margin-top: 20px;
+    }
+
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .container {
+      height: 110px;
+      position: relative;
+      text-align: center;
+    }
+
+    .submit-button {
+      position: absolute;
+      width: 150px;
+      height: 40px;
+      background-color: grey;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor:pointer
+    }
+
+    .value{
+      text-align:left;
+    }
+  </style>
 </head>
 
 <form action="/submit_form" method="POST">
 <div class="container">
   <div class="center">
-    <img src="{{url_for('static', filename='images/juvenile-logo.svg')}}" alt="Dallas Juvenile Logo" width="108" height="108">
+    <h2 style="color:blue">Submission Record</h2>
+    <h4></h4>    
   </div>
 </div>
     <header>
@@ -35,58 +195,6 @@
         </select>
       </div>
     </div>
-
-    <div>
-      <label for="app_record" style="color: #001aff">
-        <b>Select Application Record</b>
-      </label>
-      <div>
-        <select id="app_record" name="app_record">
-          <option disabled selected>Choose an item</option>
-          {% for item in app_list %}
-            {% set split_item = item.split(' : ') %}
-            {% set display_item = split_item[0] ~ ' : ' ~ split_item[1] %}
-          <option value="{{ item }}">{{ display_item }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
-
-    <script>
-      document.getElementById("app_record").addEventListener("change", function() {
-        // Get the selected option
-        var selectedOption = this.options[this.selectedIndex];
-        // Split the value of selected option to get name, email, and project title
-        var values = selectedOption.value.split(' : ');
-        // Populate the fields
-        document.getElementById("name").value = values[1];
-        document.getElementById("app_title").value = values[2];
-        document.getElementById("email").value = values[3];
-        document.getElementById("phone").value = values[4];
-        document.getElementById("title").value = values[5];
-        document.getElementById("amount_awarded").value = parseInt(values[6]);
-        document.getElementById("output1").value = values[7];
-        document.getElementById("output2").value = values[8];
-        document.getElementById("output3").value = values[9];
-        document.getElementById("output4").value = values[10];
-        document.getElementById("output5").value = values[11];
-        document.getElementById("target1").value = values[12];
-        document.getElementById("target2").value = values[13];
-        document.getElementById("target3").value = values[14];
-        document.getElementById("target4").value = values[15];
-        document.getElementById("target5").value = values[16];
-        document.getElementById("outcome1").value = values[17];
-        document.getElementById("outcome2").value = values[18];
-        document.getElementById("outcome3").value = values[19];
-        document.getElementById("outcome4").value = values[20];
-        document.getElementById("outcome5").value = values[21];
-        document.getElementById("target1.1").value = values[22];
-        document.getElementById("target2.1").value = values[23];
-        document.getElementById("target3.1").value = values[24];
-        document.getElementById("target4.1").value = values[25];
-        document.getElementById("target5.1").value = values[26];
-        });
-    </script>
 
     <div>
     <br>
@@ -729,40 +837,5 @@
       </div>
     </div>
 
-    <br><br>
-
-    <div style="text-align: justify;">
-      <div style="display: inline-flex; align-items: center; border: 1px solid red; padding: 15px;">
-        <input type="checkbox" id="disclaimer_check" name="disclaimer_check" value="agree" required style="width: 15px; height: 15px;" required>
-        <label for="disclaimer_check" style="margin-left: 10px;">All of the information contained within this progress report is true and accurate as of the date this report is being submitted. As the informant, you affirm that all due diligence has been completed. This report is made in good faith and with respect for the purpose of the Youth Services Advisory Board grant program for the express direct benefit of the youth under the authority of the Dallas County Juvenile Department.</label>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="container">
-      <div class="center">
-        <input id="saveForm" name="saveForm" type="submit" value="Submit" class="submit-button" disabled>
-      </div>
-    </div>
-
-    <script>
-      const disclaimerCheckbox = document.getElementById('disclaimer_check');
-      const submitButton = document.getElementById('saveForm');
-    
-      disclaimerCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          submitButton.style.backgroundColor = 'blue';
-          submitButton.disabled = false;
-        } else {
-          submitButton.style.backgroundColor = 'grey';
-          submitButton.disabled = true;
-        }
-      });
-    </script>
-
   </form>
-  <footer>
-    <p>Date Updated: May 21, 2024<br>
-  </footer>
 </html>
